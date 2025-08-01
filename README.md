@@ -76,26 +76,6 @@ yarn dev
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## 🏗️ Build & Deploy
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-### Deployment Options
-
-- **Static Hosting**: Use `npm run generate` for static site generation
-- **Server Deployment**: Deploy the `.output` folder to any Node.js hosting
-- **Vercel/Netlify**: Connect your repository for automatic deployments
-
 ## 🎨 Customization
 
 ### Colors
