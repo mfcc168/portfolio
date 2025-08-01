@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!-- Navigation -->
+    <!-- Nav bar -->
     <NavigationHeader />
     
-    <!-- Hero Section -->
+    <!-- Main hero area -->
     <HeroSection :full-height="true" variant="gradient">
       <template #badge>
         <div class="inline-flex items-center px-4 py-2 bg-blue-600/10 border border-blue-600/20 rounded-full text-blue-300 text-sm font-medium mb-6">
@@ -26,7 +26,7 @@
           </svg>
           View My Work
         </NuxtLink>
-        <button class="inline-flex items-center px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300">
+        <button @click="scrollToContact" class="inline-flex items-center px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all duration-300">
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
           </svg>
@@ -35,9 +35,30 @@
       </template>
     </HeroSection>
     
-    <!-- About Section -->
-    <section id="about" class="py-24 bg-gray-50">
-      <div class="container mx-auto px-6">
+    <!-- About me -->
+    <section id="about" class="py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/30 relative overflow-hidden">
+      <!-- Background animations -->
+      <div class="absolute inset-0 overflow-hidden">
+        <!-- these float around nicely -->
+        <div class="absolute -top-20 -left-20 w-80 h-80 bg-gradient-to-br from-blue-200/15 to-purple-200/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+        <div class="absolute top-1/2 -right-20 w-72 h-72 bg-gradient-to-br from-indigo-200/20 to-pink-200/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-20 left-1/4 w-64 h-64 bg-gradient-to-br from-purple-200/15 to-blue-200/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+        
+        <!-- More floating stuff -->
+        <div class="absolute top-32 right-20 w-24 h-24 bg-blue-300/10 rounded-full animate-float-slow"></div>
+        <div class="absolute top-60 left-16 w-20 h-20 bg-purple-300/15 rounded-full animate-bounce-slow"></div>
+        <div class="absolute bottom-40 right-1/3 w-32 h-32 bg-indigo-300/10 rounded-full animate-pulse-glow"></div>
+        
+        <!-- Small shapes -->
+        <div class="absolute top-40 left-1/3 w-12 h-12 bg-gradient-to-br from-blue-400/15 to-purple-400/10 transform rotate-45 animate-spin-slow"></div>
+        <div class="absolute bottom-60 right-40 w-8 h-8 bg-gradient-to-br from-indigo-400/20 to-pink-400/10 transform rotate-12 animate-spin-reverse"></div>
+        
+        <!-- Tiny dots -->
+        <div class="absolute top-80 left-40 w-3 h-3 bg-blue-500/25 rounded-full animate-bounce-slow animation-delay-1000"></div>
+        <div class="absolute bottom-80 right-1/4 w-2 h-2 bg-purple-500/30 rounded-full animate-float-slow animation-delay-3000"></div>
+      </div>
+      
+      <div class="container mx-auto px-6 relative z-10">
         <div class="max-w-6xl mx-auto">
           <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -49,10 +70,10 @@
             </p>
           </div>
           
-          <!-- Stats Row -->
+          <!-- Quick stats -->
           <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
             <div class="text-center">
-              <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">50+</div>
+              <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">10+</div>
               <div class="text-gray-600 font-medium">Projects Completed</div>
             </div>
             <div class="text-center">
@@ -69,7 +90,7 @@
             </div>
           </div>
           
-          <!-- Services Grid -->
+          <!-- What I do -->
           <div class="grid md:grid-cols-3 gap-8">
             <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
               <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
@@ -111,9 +132,49 @@
       </div>
     </section>
     
-    <!-- Skills Section -->
-    <section class="py-24 bg-white">
-      <div class="container mx-auto px-6">
+    <!-- Tech stack -->
+    <section class="py-24 bg-gradient-to-b from-white via-gray-50/50 to-blue-50/30 relative overflow-hidden">
+      <!-- Background stuff -->
+      <div class="absolute inset-0 overflow-hidden">
+        <!-- Big background shapes -->
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-100/20 to-purple-100/15 rounded-full animate-blob animation-delay-1000"></div>
+        <div class="absolute top-1/3 -left-40 w-80 h-80 bg-gradient-to-br from-indigo-100/25 to-pink-100/15 rounded-full animate-blob animation-delay-3000"></div>
+        <div class="absolute -bottom-40 right-1/4 w-72 h-72 bg-gradient-to-br from-purple-100/20 to-blue-100/15 rounded-full animate-blob"></div>
+        
+        <!-- Medium floaty things -->
+        <div class="absolute top-20 left-1/4 w-28 h-28 bg-blue-200/10 rounded-full animate-float-slow"></div>
+        <div class="absolute top-1/2 right-20 w-20 h-20 bg-purple-200/15 rounded-full animate-bounce-slow"></div>
+        <div class="absolute bottom-40 left-20 w-36 h-36 bg-indigo-200/10 rounded-full animate-pulse-glow"></div>
+        
+        <!-- Geometric stuff -->
+        <div class="absolute top-60 right-1/3 w-16 h-16 bg-gradient-to-br from-blue-300/15 to-purple-300/10 transform rotate-45 animate-spin-slow"></div>
+        <div class="absolute bottom-60 left-1/3 w-12 h-12 bg-gradient-to-br from-indigo-300/20 to-pink-300/10 transform rotate-12 animate-spin-reverse"></div>
+        
+        <!-- Small particles -->
+        <div class="absolute top-40 right-40 w-4 h-4 bg-blue-400/25 rounded-full animate-bounce-slow animation-delay-2000"></div>
+        <div class="absolute top-80 left-40 w-3 h-3 bg-purple-400/30 rounded-full animate-float-slow animation-delay-4000"></div>
+        <div class="absolute bottom-32 right-1/2 w-5 h-5 bg-indigo-400/20 rounded-full animate-pulse-glow animation-delay-1000"></div>
+        
+        <!-- Animated lines -->
+        <svg class="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 1200 800">
+          <path d="M0,400 Q300,300 600,400 T1200,400" stroke="url(#skillsGradient1)" stroke-width="2" fill="none" class="animate-draw-line-1"/>
+          <path d="M0,500 Q300,450 600,500 T1200,500" stroke="url(#skillsGradient2)" stroke-width="1.5" fill="none" class="animate-draw-line-2"/>
+          <defs>
+            <linearGradient id="skillsGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:rgb(59,130,246);stop-opacity:0" />
+              <stop offset="50%" style="stop-color:rgb(59,130,246);stop-opacity:1" />
+              <stop offset="100%" style="stop-color:rgb(99,102,241);stop-opacity:0" />
+            </linearGradient>
+            <linearGradient id="skillsGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:rgb(99,102,241);stop-opacity:0" />
+              <stop offset="50%" style="stop-color:rgb(139,92,246);stop-opacity:1" />
+              <stop offset="100%" style="stop-color:rgb(59,130,246);stop-opacity:0" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      
+      <div class="container mx-auto px-6 relative z-10">
         <div class="max-w-6xl mx-auto">
           <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -125,7 +186,7 @@
           </div>
           
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <div v-for="(skill, index) in skills" :key="skill.name" 
+            <div v-for="skill in skills" :key="skill.name" 
                  class="group bg-gray-50 hover:bg-blue-50 p-6 rounded-xl transition-all duration-300 hover:shadow-md border border-gray-100 hover:border-blue-200">
               <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
@@ -142,14 +203,35 @@
       </div>
     </section>
     
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-gray-900">
-      <div class="container mx-auto px-6">
+    <!-- Get in touch -->
+    <section id="contact" class="py-24 bg-gradient-to-br from-blue-50/30 via-indigo-50/20 to-purple-50/30 relative overflow-hidden">
+      <!-- Light background animations -->
+      <div class="absolute inset-0 overflow-hidden">
+        <!-- Floating shapes -->
+        <div class="absolute -top-20 -left-20 w-80 h-80 bg-gradient-to-br from-blue-200/15 to-purple-200/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+        <div class="absolute top-1/2 -right-20 w-72 h-72 bg-gradient-to-br from-indigo-200/20 to-pink-200/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-20 left-1/3 w-64 h-64 bg-gradient-to-br from-purple-200/15 to-blue-200/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+        
+        <!-- More floating stuff -->
+        <div class="absolute top-32 right-20 w-24 h-24 bg-blue-300/10 rounded-full animate-float-slow"></div>
+        <div class="absolute top-60 left-16 w-20 h-20 bg-purple-300/15 rounded-full animate-bounce-slow"></div>
+        <div class="absolute bottom-40 right-1/3 w-32 h-32 bg-indigo-300/10 rounded-full animate-pulse-glow"></div>
+        
+        <!-- Small shapes -->
+        <div class="absolute top-40 left-1/3 w-12 h-12 bg-gradient-to-br from-blue-400/15 to-purple-400/10 transform rotate-45 animate-spin-slow"></div>
+        <div class="absolute bottom-60 right-40 w-8 h-8 bg-gradient-to-br from-indigo-400/20 to-pink-400/10 transform rotate-12 animate-spin-reverse"></div>
+        
+        <!-- Tiny dots -->
+        <div class="absolute top-80 left-40 w-3 h-3 bg-blue-500/25 rounded-full animate-bounce-slow animation-delay-1000"></div>
+        <div class="absolute bottom-80 right-1/4 w-2 h-2 bg-purple-500/30 rounded-full animate-float-slow animation-delay-3000"></div>
+      </div>
+      
+      <div class="container mx-auto px-6 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
-          <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Let's Build Something Great
           </h2>
-          <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
             Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your vision to life.
           </p>
           
@@ -171,6 +253,17 @@
 import NavigationHeader from './NavigationHeader.vue'
 import HeroSection from './HeroSection.vue'
 
+// Scroll to contact section when button is clicked
+const scrollToContact = () => {
+  if (import.meta.client) {
+    const contactSection = document.getElementById('contact')
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+}
+
+// My tech stack - probably should add more later
 const skills = [
   { name: 'Python', icon: '🐍', category: 'Language' },
   { name: 'TypeScript', icon: '📘', category: 'Language' },

@@ -2,8 +2,26 @@
   <section :class="[
     'relative overflow-hidden',
     fullHeight ? 'min-h-screen pt-20' : 'py-24',
-    variant === 'gradient' ? 'bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900' : 'bg-white'
+    variant === 'gradient' ? 'bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900' : 
+    variant === 'animated' ? 'bg-gradient-to-br from-white via-blue-50/20 to-indigo-50/30' : 'bg-white'
   ]">
+    <!-- Background animation for other pages -->
+    <div v-if="variant === 'animated'" class="absolute inset-0 overflow-hidden">
+      <!-- Floaty bits -->
+      <div class="absolute top-20 left-20 w-40 h-40 bg-blue-200/15 rounded-full animate-float-slow"></div>
+      <div class="absolute top-32 right-32 w-32 h-32 bg-purple-200/20 rounded-full animate-bounce-slow"></div>
+      <div class="absolute bottom-40 left-1/3 w-48 h-48 bg-indigo-200/10 rounded-full animate-pulse-glow"></div>
+      
+      <!-- Shapes -->
+      <div class="absolute top-60 right-20 w-20 h-20 bg-gradient-to-br from-blue-300/15 to-purple-300/10 transform rotate-45 animate-spin-slow"></div>
+      <div class="absolute bottom-32 left-40 w-16 h-16 bg-gradient-to-br from-indigo-300/20 to-pink-300/10 transform rotate-12 animate-spin-reverse"></div>
+      
+      <!-- Tiny particles -->
+      <div class="absolute top-40 left-1/4 w-4 h-4 bg-blue-400/30 rounded-full animate-bounce-slow animation-delay-1000"></div>
+      <div class="absolute top-80 right-1/4 w-3 h-3 bg-purple-400/40 rounded-full animate-float-slow animation-delay-3000"></div>
+      <div class="absolute bottom-60 left-1/2 w-5 h-5 bg-indigo-400/25 rounded-full animate-pulse-glow animation-delay-2000"></div>
+    </div>
+
     <div v-if="variant === 'gradient'" class="absolute inset-0">
       <div class="absolute inset-0" ref="parallaxLayer1">
         <div class="absolute top-20 left-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-float-slow"></div>
@@ -96,7 +114,7 @@
       </div>
     </div>
     
-    <!-- About Me Section -->
+    <!-- Quick about section -->
     <div v-if="fullHeight && variant === 'gradient'" class="absolute bottom-32 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-6">
       <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 opacity-0 animate-fade-in-up" style="animation-delay: 1s; animation-fill-mode: forwards;">
         <div class="text-center">
@@ -127,7 +145,7 @@
       </div>
     </div>
     
-    <!-- Scroll Indicator -->
+    <!-- Scroll hint -->
     <div v-if="fullHeight" class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
       <div class="flex flex-col items-center space-y-2 animate-bounce">
         <span :class="['text-sm font-medium', variant === 'gradient' ? 'text-gray-400' : 'text-gray-500']">
@@ -152,10 +170,11 @@ const props = defineProps({
   variant: {
     type: String,
     default: 'gradient',
-    validator: (value) => ['gradient', 'light'].includes(value)
+    validator: (value) => ['gradient', 'light', 'animated'].includes(value)
   }
 })
 
+// Tech icons for the hero section
 const techStack = [
   { name: 'Python', icon: '🐍' },
   { name: 'TypeScript', icon: '📘' },
@@ -165,6 +184,7 @@ const techStack = [
   { name: 'Kotlin', icon: '🤖' }
 ]
 
+// Different things I specialize in - cycles through these
 const specialties = [
   'Backend & APIs',
   'Mobile Development',
@@ -180,6 +200,7 @@ let currentIndex = 0
 let currentText = ''
 let isDeleting = false
 
+// Typing animation effect
 const typeSpecialty = () => {
   const currentSpecialtyText = specialties[currentIndex]
   
@@ -213,6 +234,7 @@ const backgroundStyle = computed(() => ({
   backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
 }))
 
+// Throttle scroll events for better performance
 let ticking = false
 const handleParallaxScroll = () => {
   if (!ticking && props.variant === 'gradient' && !document.hidden) {

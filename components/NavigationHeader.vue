@@ -34,25 +34,17 @@
           >
             Projects
           </NuxtLink>
-          <a 
-            href="#about" 
+          <NuxtLink 
+            to="/about" 
             :class="[
               'hover:text-blue-600 transition-colors font-medium',
-              isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90'
+              $route.path === '/about' ? 'text-blue-600' : (isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90')
             ]"
           >
             About
-          </a>
-          <a 
-            href="#contact" 
-            :class="[
-              'hover:text-blue-600 transition-colors font-medium',
-              isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90'
-            ]"
-          >
-            Contact
-          </a>
+          </NuxtLink>
           <button 
+            @click="handleGetInTouch"
             :class="[
               'px-6 py-2 rounded-lg transition-all duration-300 font-medium',
               isScrolled || !isHomePage 
@@ -108,27 +100,18 @@
           >
             Projects
           </NuxtLink>
-          <a 
-            href="#about" 
+          <NuxtLink 
+            to="/about" 
             @click="mobileMenuOpen = false" 
             :class="[
               'hover:text-blue-600 transition-colors font-medium',
-              isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90'
+              $route.path === '/about' ? 'text-blue-600' : (isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90')
             ]"
           >
             About
-          </a>
-          <a 
-            href="#contact" 
-            @click="mobileMenuOpen = false" 
-            :class="[
-              'hover:text-blue-600 transition-colors font-medium',
-              isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90'
-            ]"
-          >
-            Contact
-          </a>
+          </NuxtLink>
           <button 
+            @click="handleGetInTouch"
             :class="[
               'px-6 py-2 rounded-lg transition-all duration-300 font-medium w-fit',
               isScrolled || !isHomePage 
@@ -145,7 +128,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 
 const mobileMenuOpen = ref(false)
 const scrollY = ref(0)
@@ -171,6 +154,30 @@ onMounted(() => {
   scrollY.value = window.scrollY
   window.addEventListener('scroll', handleScroll, { passive: true })
 })
+
+// Handle get in touch button - scroll to contact or navigate home first
+const handleGetInTouch = async () => {
+  mobileMenuOpen.value = false
+  
+  if (import.meta.client) {
+    if (currentPath.value === '/') {
+      const contactSection = document.getElementById('contact')
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      await navigateTo('/')
+      // Need to wait for DOM to update
+      await nextTick()
+      setTimeout(() => {
+        const contactSection = document.getElementById('contact')
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 200)
+    }
+  }
+}
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
