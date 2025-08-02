@@ -1,10 +1,5 @@
 <template>
-  <section class="py-24 bg-gradient-to-b from-white via-gray-50/50 to-blue-50/30 relative overflow-hidden">
-    <!-- Background animations -->
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-100/30 to-purple-100/20 rounded-full animate-blob animation-delay-1000"></div>
-      <div class="absolute top-1/3 -left-40 w-80 h-80 bg-gradient-to-br from-indigo-100/25 to-pink-100/15 rounded-full animate-blob animation-delay-3000"></div>
-    </div>
+  <section class="py-24 relative overflow-hidden">
     
     <div class="container mx-auto px-6 relative z-10">
       <div class="max-w-6xl mx-auto">

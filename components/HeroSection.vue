@@ -5,22 +5,6 @@
     variant === 'gradient' ? 'bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900' : 
     variant === 'animated' ? 'bg-gradient-to-br from-white via-blue-50/20 to-indigo-50/30' : 'bg-white'
   ]">
-    <!-- Background animation for other pages -->
-    <div v-if="variant === 'animated'" class="absolute inset-0 overflow-hidden">
-      <!-- Floaty bits -->
-      <div class="absolute top-20 left-20 w-40 h-40 bg-blue-200/15 rounded-full animate-float-slow"></div>
-      <div class="absolute top-32 right-32 w-32 h-32 bg-purple-200/20 rounded-full animate-bounce-slow"></div>
-      <div class="absolute bottom-40 left-1/3 w-48 h-48 bg-indigo-200/10 rounded-full animate-pulse-glow"></div>
-      
-      <!-- Shapes -->
-      <div class="absolute top-60 right-20 w-20 h-20 bg-gradient-to-br from-blue-300/15 to-purple-300/10 transform rotate-45 animate-spin-slow"></div>
-      <div class="absolute bottom-32 left-40 w-16 h-16 bg-gradient-to-br from-indigo-300/20 to-pink-300/10 transform rotate-12 animate-spin-reverse"></div>
-      
-      <!-- Tiny particles -->
-      <div class="absolute top-40 left-1/4 w-4 h-4 bg-blue-400/30 rounded-full animate-bounce-slow animation-delay-1000"></div>
-      <div class="absolute top-80 right-1/4 w-3 h-3 bg-purple-400/40 rounded-full animate-float-slow animation-delay-3000"></div>
-      <div class="absolute bottom-60 left-1/2 w-5 h-5 bg-indigo-400/25 rounded-full animate-pulse-glow animation-delay-2000"></div>
-    </div>
 
     <div v-if="variant === 'gradient'" class="absolute inset-0">
       <div class="absolute inset-0" ref="parallaxLayer1">
@@ -242,16 +226,16 @@ const handleParallaxScroll = () => {
       if (document.hidden) return
       
       const scrolled = window.pageYOffset
-      const rate1 = scrolled * -0.5
-      const rate2 = scrolled * -0.3
-      const rate3 = scrolled * -0.7
+      // Enhanced parallax intensity for better visual depth
+      const rate1 = scrolled * -0.3
+      const rate2 = scrolled * -0.2
+      const rate3 = scrolled * -0.5
       
       if (parallaxLayer1.value) {
         parallaxLayer1.value.style.transform = `translateY(${rate1}px)`
       }
       if (parallaxLayer2.value) {
-        parallaxLayer2.value.style.transform = `translateY(${rate2}px) translate3d(${currentX}px, ${currentY}px, 0)`
-        parallaxLayer2.value.dataset.scrollY = rate2
+        parallaxLayer2.value.style.transform = `translateY(${rate2}px)`
       }
       if (parallaxLayer3.value) {
         parallaxLayer3.value.style.transform = `translateY(${rate3}px)`
@@ -263,54 +247,11 @@ const handleParallaxScroll = () => {
   }
 }
 
-let mouseX = 0
-let mouseY = 0
-let currentX = 0
-let currentY = 0
 
-const handleMouseMove = (e) => {
-  if (props.variant !== 'gradient') return
-  
-  const { clientX, clientY } = e
-  const { innerWidth, innerHeight } = window
-  
-  mouseX = (clientX / innerWidth - 0.5) * 15
-  mouseY = (clientY / innerHeight - 0.5) * 15
-}
-
-let animationId = null
-const animateMouseParallax = () => {
-  if (props.variant === 'gradient' && !document.hidden) {
-    currentX += (mouseX - currentX) * 0.1
-    currentY += (mouseY - currentY) * 0.1
-    
-    if (parallaxLayer2.value) {
-      parallaxLayer2.value.style.transform = `translateY(${parallaxLayer2.value.dataset.scrollY || 0}px) translate3d(${currentX}px, ${currentY}px, 0)`
-    }
-    
-    animationId = requestAnimationFrame(animateMouseParallax)
-  }
-}
-
-const handleVisibilityChange = () => {
-  if (document.hidden) {
-    if (animationId) {
-      cancelAnimationFrame(animationId)
-      animationId = null
-    }
-  } else {
-    if (props.variant === 'gradient') {
-      animateMouseParallax()
-    }
-  }
-}
 
 onMounted(() => {
   if (props.variant === 'gradient' && import.meta.client) {
     window.addEventListener('scroll', handleParallaxScroll, { passive: true })
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-    animateMouseParallax()
     
     if (props.fullHeight) {
       setTimeout(() => {
@@ -323,13 +264,6 @@ onMounted(() => {
 onUnmounted(() => {
   if (props.variant === 'gradient' && import.meta.client) {
     window.removeEventListener('scroll', handleParallaxScroll)
-    window.removeEventListener('mousemove', handleMouseMove)
-    document.removeEventListener('visibilitychange', handleVisibilityChange)
-    
-    if (animationId) {
-      cancelAnimationFrame(animationId)
-      animationId = null
-    }
     
     if (typingInterval) {
       clearTimeout(typingInterval)

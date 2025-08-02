@@ -35,14 +35,23 @@
       </template>
     </HeroSection>
     
-    <!-- About me -->
-    <AboutSection />
-    
-    <!-- Tech stack -->
-    <SkillsSection />
-    
-    <!-- Get in touch -->
-    <ContactSection />
+    <!-- Main content wrapper with consistent background -->
+    <div class="bg-gradient-to-br from-white via-blue-50/20 to-indigo-50/30 relative overflow-hidden">
+      <!-- Interactive background with physics -->
+      <InteractiveBackground />
+      
+      <!-- Content with higher z-index -->
+      <div class="relative z-10">
+        <!-- About me -->
+        <AboutSection />
+        
+        <!-- Tech stack -->
+        <SkillsSection />
+        
+        <!-- Get in touch -->
+        <ContactSection />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -52,6 +61,7 @@ import HeroSection from './HeroSection.vue'
 import AboutSection from './sections/AboutSection.vue'
 import SkillsSection from './sections/SkillsSection.vue'
 import ContactSection from './sections/ContactSection.vue'
+import InteractiveBackground from './ui/InteractiveBackground.vue'
 
 // Simple scroll to contact functionality
 const scrollToContact = () => {

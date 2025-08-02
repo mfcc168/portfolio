@@ -1,59 +1,24 @@
 <template>
-  <div>
-    <NavigationHeader />
+  <div class="relative overflow-hidden">
+    <!-- Interactive background covering entire page -->
+    <InteractiveBackground />
     
-    <!-- Header -->
-    <HeroSection variant="animated">
-      <template #title>
-        About <span class="text-blue-600">Me</span>
-      </template>
-      <template #subtitle>
-        Full-stack developer with a passion for creating robust backend systems and innovative mobile applications
-      </template>
-    </HeroSection>
-    
-    <!-- About content -->
-    <section class="py-20 bg-gradient-to-br from-white via-blue-50/20 to-indigo-50/30 relative overflow-hidden">
-      <!-- Background layers -->
-      <div class="absolute inset-0 overflow-hidden">
-        <!-- Big blob shapes -->
-        <div class="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-purple-200/15 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div class="absolute top-1/3 -right-20 w-80 h-80 bg-gradient-to-br from-indigo-200/25 to-pink-200/15 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-        <div class="absolute -bottom-20 left-1/4 w-72 h-72 bg-gradient-to-br from-purple-200/20 to-blue-200/15 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
-        
-        <!-- Floating elements -->
-        <div class="absolute top-32 right-20 w-32 h-32 bg-blue-300/10 rounded-full animate-float-slow"></div>
-        <div class="absolute top-60 left-16 w-24 h-24 bg-purple-300/15 rounded-full animate-bounce-slow"></div>
-        <div class="absolute bottom-40 right-1/3 w-40 h-40 bg-indigo-300/10 rounded-full animate-pulse-glow"></div>
-        
-        <!-- Geometric shapes -->
-        <div class="absolute top-80 right-40 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-400/15 transform rotate-45 animate-spin-slow"></div>
-        <div class="absolute bottom-60 left-40 w-12 h-12 bg-gradient-to-br from-indigo-400/20 to-pink-400/15 transform rotate-12 animate-spin-reverse"></div>
-        <div class="absolute top-1/2 right-10 w-8 h-8 bg-blue-500/25 transform rotate-45 animate-bounce-slow"></div>
-        
-        <!-- Small particles -->
-        <div class="absolute top-40 left-1/3 w-3 h-3 bg-blue-500/30 rounded-full animate-float-slow animation-delay-1000"></div>
-        <div class="absolute top-96 right-1/4 w-2 h-2 bg-purple-500/40 rounded-full animate-bounce-slow animation-delay-3000"></div>
-        <div class="absolute bottom-32 left-1/2 w-4 h-4 bg-indigo-500/30 rounded-full animate-pulse-glow animation-delay-2000"></div>
-        
-        <!-- Animated lines -->
-        <svg class="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 1200 800">
-          <path d="M0,200 Q300,100 600,200 T1200,200" stroke="url(#aboutGradient1)" stroke-width="2" fill="none" class="animate-draw-line-1"/>
-          <path d="M0,600 Q300,500 600,600 T1200,600" stroke="url(#aboutGradient2)" stroke-width="1.5" fill="none" class="animate-draw-line-2"/>
-          <defs>
-            <linearGradient id="aboutGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:rgb(59,130,246);stop-opacity:0" />
-              <stop offset="50%" style="stop-color:rgb(59,130,246);stop-opacity:1" />
-              <stop offset="100%" style="stop-color:rgb(99,102,241);stop-opacity:0" />
-            </linearGradient>
-            <linearGradient id="aboutGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:rgb(139,92,246);stop-opacity:0" />
-              <stop offset="50%" style="stop-color:rgb(236,72,153);stop-opacity:1" />
-              <stop offset="100%" style="stop-color:rgb(59,130,246);stop-opacity:0" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+    <!-- Page content with higher z-index -->
+    <div class="relative z-10">
+      <NavigationHeader />
+      
+      <!-- Header -->
+      <HeroSection variant="animated">
+        <template #title>
+          About <span class="text-blue-600">Me</span>
+        </template>
+        <template #subtitle>
+          Full-stack developer with a passion for creating robust backend systems and innovative mobile applications
+        </template>
+      </HeroSection>
+      
+      <!-- About content -->
+      <section class="py-20 bg-gradient-to-br from-white via-blue-50/20 to-indigo-50/30">
       
       <div class="container mx-auto px-6 relative z-10">
         <div class="max-w-6xl mx-auto">
@@ -335,6 +300,7 @@
         </div>
       </div>
     </section>
+    </div>
   </div>
 </template>
 
@@ -342,6 +308,7 @@
 import { nextTick } from 'vue'
 import NavigationHeader from './NavigationHeader.vue'
 import HeroSection from './HeroSection.vue'
+import InteractiveBackground from './ui/InteractiveBackground.vue'
 
 // Navigate to contact section on home page
 const goToContact = async () => {

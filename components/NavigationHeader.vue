@@ -1,7 +1,7 @@
 <template>
   <header :class="[
-    'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out',
-    isScrolled || !isHomePage ? 'bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm' : 'bg-transparent'
+    'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out navbar-header',
+    isScrolled || !isHomePage ? 'navbar-scrolled' : 'navbar-transparent'
   ]">
     <nav class="container mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
@@ -137,7 +137,7 @@ const route = useRoute()
 const currentPath = computed(() => route.path)
 
 const isHomePage = computed(() => {
-  if (import.meta.server) return false
+  if (import.meta.server) return true // Assume home page on server to start transparent
   return currentPath.value === '/'
 })
 
@@ -183,3 +183,21 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 </script>
+
+<style scoped>
+.navbar-header {
+  /* Default to transparent for home page */
+  background: transparent;
+}
+
+.navbar-transparent {
+  background: transparent;
+}
+
+.navbar-scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(229, 231, 235, 1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+</style>

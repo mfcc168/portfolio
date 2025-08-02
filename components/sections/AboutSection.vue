@@ -1,11 +1,5 @@
 <template>
-  <section id="about" class="py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/30 relative overflow-hidden">
-    <!-- Background animations -->
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute -top-20 -left-20 w-80 h-80 bg-gradient-to-br from-blue-200/15 to-purple-200/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-      <div class="absolute top-1/2 -right-20 w-72 h-72 bg-gradient-to-br from-indigo-200/20 to-pink-200/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-      <div class="absolute -bottom-20 left-1/4 w-64 h-64 bg-gradient-to-br from-purple-200/15 to-blue-200/10 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
-    </div>
+  <section id="about" class="py-24 relative overflow-hidden">
     
     <div class="container mx-auto px-6 relative z-10">
       <div class="max-w-6xl mx-auto">
