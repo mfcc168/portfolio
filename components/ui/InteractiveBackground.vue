@@ -43,10 +43,10 @@ const shapes = ref([])
 // Physics constants
 const GRAVITY = 0.08
 const FRICTION = 0.998
-const BOUNCE_DAMPING = 0.95
+const BOUNCE_DAMPING = 0.75
 const MOUSE_FORCE = 12
 const MOUSE_RADIUS = 80
-const MIN_BOUNCE_VELOCITY = 8
+const MIN_BOUNCE_VELOCITY = 4
 const VELOCITY_THRESHOLD = 0.3
 const GROUND_DAMPING = 0.8
 
@@ -281,7 +281,7 @@ const updatePhysics = () => {
       shape.vx = Math.abs(shape.vx) * BOUNCE_DAMPING
       // Add minimum bounce velocity only if significant
       if (shape.vx < MIN_BOUNCE_VELOCITY && Math.abs(shape.vx) > VELOCITY_THRESHOLD) {
-        shape.vx = MIN_BOUNCE_VELOCITY + Math.random() * 5
+        shape.vx = MIN_BOUNCE_VELOCITY
       }
     }
     if (shape.x >= width - shape.size) {
@@ -289,7 +289,7 @@ const updatePhysics = () => {
       shape.vx = -Math.abs(shape.vx) * BOUNCE_DAMPING
       // Add minimum bounce velocity only if significant
       if (Math.abs(shape.vx) < MIN_BOUNCE_VELOCITY && Math.abs(shape.vx) > VELOCITY_THRESHOLD) {
-        shape.vx = -(MIN_BOUNCE_VELOCITY + Math.random() * 5)
+        shape.vx = -MIN_BOUNCE_VELOCITY
       }
     }
     if (shape.y <= 0) {
@@ -297,7 +297,7 @@ const updatePhysics = () => {
       shape.vy = Math.abs(shape.vy) * BOUNCE_DAMPING
       // Add minimum bounce velocity only if significant
       if (shape.vy < MIN_BOUNCE_VELOCITY && Math.abs(shape.vy) > VELOCITY_THRESHOLD) {
-        shape.vy = MIN_BOUNCE_VELOCITY + Math.random() * 5
+        shape.vy = MIN_BOUNCE_VELOCITY
       }
     }
     if (shape.y >= height - shape.size) {
@@ -305,20 +305,17 @@ const updatePhysics = () => {
       
       // Prevent ground sticking and vibration
       if (Math.abs(shape.vy) < VELOCITY_THRESHOLD) {
-        // If moving very slowly, stop completely and add occasional burst
+        // If moving very slowly, stop completely
         shape.vy = 0
-        if (Math.random() < 0.015) {
-          shape.vy = -(MIN_BOUNCE_VELOCITY + Math.random() * 8)
-        }
       } else {
         // Normal bounce behavior
         shape.vy = -Math.abs(shape.vy) * BOUNCE_DAMPING
         // Add minimum bounce velocity only for significant movement
         if (Math.abs(shape.vy) < MIN_BOUNCE_VELOCITY) {
-          shape.vy = -(MIN_BOUNCE_VELOCITY + Math.random() * 8)
+          shape.vy = -MIN_BOUNCE_VELOCITY
         }
-        // Add extra bounce for ground hits (light bounce feel)
-        shape.vy *= 1.4
+        // Reduced extra bounce for ground hits
+        shape.vy *= 1.1
       }
     }
     
@@ -373,11 +370,11 @@ const updatePhysics = () => {
         otherShape.vx -= impulseX * shape.mass
         otherShape.vy -= impulseY * shape.mass
         
-        // Add some randomness to prevent perfect stacking
-        shape.vx += (Math.random() - 0.5) * 2
-        shape.vy += (Math.random() - 0.5) * 2
-        otherShape.vx += (Math.random() - 0.5) * 2
-        otherShape.vy += (Math.random() - 0.5) * 2
+        // Small fixed offset to prevent perfect stacking
+        shape.vx += 0.5
+        shape.vy += 0.5
+        otherShape.vx -= 0.5
+        otherShape.vy -= 0.5
       }
     })
     

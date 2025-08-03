@@ -247,8 +247,6 @@ const handleParallaxScroll = () => {
   }
 }
 
-
-
 onMounted(() => {
   if (props.variant === 'gradient' && import.meta.client) {
     window.addEventListener('scroll', handleParallaxScroll, { passive: true })
