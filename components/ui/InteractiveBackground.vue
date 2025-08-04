@@ -2,9 +2,7 @@
   <div 
     ref="containerRef"
     class="absolute inset-0 overflow-hidden"
-    @mousemove="handleMouseMove"
-    @mouseleave="handleMouseLeave"
-    style="pointer-events: auto;"
+    style="pointer-events: none;"
   >
     <div
       v-for="shape in shapes"
@@ -33,10 +31,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, reactive } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const containerRef = ref(null)
-const mouse = reactive({ x: 0, y: 0, isActive: false })
 const animationId = ref(null)
 const shapes = ref([])
 
@@ -44,11 +41,8 @@ const shapes = ref([])
 const GRAVITY = 0.08
 const FRICTION = 0.998
 const BOUNCE_DAMPING = 0.75
-const MOUSE_FORCE = 12
-const MOUSE_RADIUS = 80
 const MIN_BOUNCE_VELOCITY = 4
 const VELOCITY_THRESHOLD = 0.3
-const GROUND_DAMPING = 0.8
 
 // Initialize shapes with physics properties
 const initializeShapes = () => {
@@ -211,19 +205,6 @@ const initializeShapes = () => {
   ]
 }
 
-// Mouse interaction handlers
-const handleMouseMove = (event) => {
-  if (!containerRef.value) return
-  
-  const rect = containerRef.value.getBoundingClientRect()
-  mouse.x = event.clientX - rect.left
-  mouse.y = event.clientY - rect.top
-  mouse.isActive = true
-}
-
-const handleMouseLeave = () => {
-  mouse.isActive = false
-}
 
 // Physics simulation
 const updatePhysics = () => {
@@ -243,21 +224,14 @@ const updatePhysics = () => {
       shape.vy += (Math.random() - 0.5) * 4
     }
     
-    // Mouse interaction force
-    if (mouse.isActive) {
-      const dx = mouse.x - (shape.x + shape.size / 2)
-      const dy = mouse.y - (shape.y + shape.size / 2)
-      const distance = Math.sqrt(dx * dx + dy * dy)
-      
-      if (distance < MOUSE_RADIUS && distance > 0) {
-        const force = (MOUSE_RADIUS - distance) / MOUSE_RADIUS * MOUSE_FORCE
-        const angle = Math.atan2(dy, dx)
-        
-        // Push away from mouse
-        shape.vx -= Math.cos(angle) * force / shape.mass
-        shape.vy -= Math.sin(angle) * force / shape.mass
-      }
+    // Prevent complete stopping by adding minimal energy when velocity is too low
+    const totalVelocity = Math.abs(shape.vx) + Math.abs(shape.vy)
+    if (totalVelocity < 0.1) {
+      // Add small random velocity to prevent complete stopping
+      shape.vx += (Math.random() - 0.5) * 1.5
+      shape.vy += (Math.random() - 0.5) * 1.5
     }
+    
     
     // Update position
     shape.x += shape.vx
@@ -267,12 +241,12 @@ const updatePhysics = () => {
     shape.vx *= FRICTION
     shape.vy *= FRICTION
     
-    // Dampen very small velocities to prevent shaking/blinking
+    // Dampen very small velocities to prevent shaking, but don't completely stop
     if (Math.abs(shape.vx) < VELOCITY_THRESHOLD) {
-      shape.vx = 0
+      shape.vx *= 0.5
     }
     if (Math.abs(shape.vy) < VELOCITY_THRESHOLD && shape.y < height - shape.size - 5) {
-      shape.vy = 0
+      shape.vy *= 0.5
     }
     
     // Enhanced boundary collision detection with smooth bounces
@@ -303,24 +277,22 @@ const updatePhysics = () => {
     if (shape.y >= height - shape.size) {
       shape.y = height - shape.size
       
-      // Prevent ground sticking and vibration
-      if (Math.abs(shape.vy) < VELOCITY_THRESHOLD) {
-        // If moving very slowly, stop completely
-        shape.vy = 0
-      } else {
-        // Normal bounce behavior
-        shape.vy = -Math.abs(shape.vy) * BOUNCE_DAMPING
-        // Add minimum bounce velocity only for significant movement
-        if (Math.abs(shape.vy) < MIN_BOUNCE_VELOCITY) {
-          shape.vy = -MIN_BOUNCE_VELOCITY
-        }
-        // Reduced extra bounce for ground hits
-        shape.vy *= 1.1
+      // Normal bounce behavior with minimum energy preservation
+      shape.vy = -Math.abs(shape.vy) * BOUNCE_DAMPING
+      
+      // Ensure minimum bounce velocity to prevent getting stuck on ground
+      if (Math.abs(shape.vy) < MIN_BOUNCE_VELOCITY) {
+        shape.vy = -MIN_BOUNCE_VELOCITY
+      }
+      
+      // Add slight random horizontal movement to prevent perfect vertical bouncing
+      if (Math.abs(shape.vx) < 1) {
+        shape.vx += (Math.random() - 0.5) * 2
       }
     }
     
     // Shape-to-shape collision detection
-    shapes.value.forEach((otherShape, otherIndex) => {
+    shapes.value.forEach((otherShape) => {
       if (otherShape.id === shape.id) return // Skip self
       
       const dx = (shape.x + shape.size / 2) - (otherShape.x + otherShape.size / 2)
