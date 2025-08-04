@@ -1,3 +1,5 @@
+import { ref, readonly, onUnmounted } from 'vue'
+
 export const useTypingAnimation = (items, options = {}) => {
   const {
     typeSpeed = 100,

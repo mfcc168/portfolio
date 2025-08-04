@@ -108,21 +108,9 @@
             I build REST APIs, ERP backends, meal planning platforms, employee dashboards, and cross-platform mobile apps using modern technologies.
           </p>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="text-center">
-              <div class="text-2xl font-bold text-blue-400 mb-1">50+</div>
-              <div class="text-gray-400 text-sm font-medium">Projects</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-blue-400 mb-1">5+</div>
-              <div class="text-gray-400 text-sm font-medium">Years Exp.</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-blue-400 mb-1">20+</div>
-              <div class="text-gray-400 text-sm font-medium">Happy Clients</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-blue-400 mb-1">99%</div>
-              <div class="text-gray-400 text-sm font-medium">Success Rate</div>
+            <div v-for="stat in stats.hero" :key="stat.label" class="text-center">
+              <div class="text-2xl font-bold text-blue-400 mb-1">{{ stat.value }}</div>
+              <div class="text-gray-400 text-sm font-medium">{{ stat.label }}</div>
             </div>
           </div>
         </div>
@@ -145,6 +133,8 @@
 
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { techStack, specialties, stats } from '../data/skills.js'
+import { useTypingAnimation } from '../composables/useTypingAnimation.js'
 
 const props = defineProps({
   fullHeight: {
@@ -158,57 +148,13 @@ const props = defineProps({
   }
 })
 
-// Tech icons for the hero section
-const techStack = [
-  { name: 'Python', icon: '🐍' },
-  { name: 'TypeScript', icon: '📘' },
-  { name: 'React Native', icon: '⚛️' },
-  { name: 'Node.js', icon: '🟢' },
-  { name: 'MongoDB', icon: '🍃' },
-  { name: 'Kotlin', icon: '🤖' }
-]
-
-// Different things I specialize in - cycles through these
-const specialties = [
-  'Backend & APIs',
-  'Mobile Development',
-  'Full-Stack Web Apps',
-  'Academic Projects',
-  'API Integration',
-  'System Architecture'
-]
-
-const currentSpecialty = ref('')
-let typingInterval = null
-let currentIndex = 0
-let currentText = ''
-let isDeleting = false
-
-// Typing animation effect
-const typeSpecialty = () => {
-  const currentSpecialtyText = specialties[currentIndex]
-  
-  if (isDeleting) {
-    currentText = currentSpecialtyText.substring(0, currentText.length - 1)
-  } else {
-    currentText = currentSpecialtyText.substring(0, currentText.length + 1)
-  }
-  
-  currentSpecialty.value = currentText
-  
-  let typeSpeed = isDeleting ? 50 : 100
-  
-  if (!isDeleting && currentText === currentSpecialtyText) {
-    typeSpeed = 2000
-    isDeleting = true
-  } else if (isDeleting && currentText === '') {
-    isDeleting = false
-    currentIndex = (currentIndex + 1) % specialties.length
-    typeSpeed = 300
-  }
-  
-  typingInterval = setTimeout(typeSpecialty, typeSpeed)
-}
+// Use typing animation composable
+const { currentText: currentSpecialty, startTyping, stopTyping } = useTypingAnimation(specialties, {
+  typeSpeed: 100,
+  deleteSpeed: 50,
+  pauseTime: 2000,
+  deleteDelay: 300
+})
 
 const parallaxLayer1 = ref(null)
 const parallaxLayer2 = ref(null)
@@ -252,9 +198,7 @@ onMounted(() => {
     window.addEventListener('scroll', handleParallaxScroll, { passive: true })
     
     if (props.fullHeight) {
-      setTimeout(() => {
-        typeSpecialty()
-      }, 1000)
+      startTyping(1000)
     }
   }
 })
@@ -262,11 +206,7 @@ onMounted(() => {
 onUnmounted(() => {
   if (props.variant === 'gradient' && import.meta.client) {
     window.removeEventListener('scroll', handleParallaxScroll)
-    
-    if (typingInterval) {
-      clearTimeout(typingInterval)
-      typingInterval = null
-    }
+    stopTyping()
   }
 })
 </script>

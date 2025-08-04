@@ -12,7 +12,7 @@
             isScrolled || !isHomePage ? 'text-gray-900' : 'text-white'
           ]"
         >
-          Portfolio
+          Frankie Yu
         </NuxtLink>
         
         <div class="hidden md:flex items-center space-x-8">
@@ -137,7 +137,6 @@ const route = useRoute()
 const currentPath = computed(() => route.path)
 
 const isHomePage = computed(() => {
-  if (import.meta.server) return true // Assume home page on server to start transparent
   return currentPath.value === '/'
 })
 
