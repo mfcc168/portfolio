@@ -56,6 +56,15 @@
 </template>
 
 <script setup>
+
+import { useHead } from '#imports'
+useHead({
+  title: 'Frankie Yu - Full-Stack Developer Portfolio',
+  meta: [
+    { name: 'description', content: 'Welcome to the portfolio of Frankie Yu. Explore projects in backend development, mobile apps, and full-stack solutions.' }
+  ]
+})
+
 import NavigationHeader from '../components/NavigationHeader.vue'
 import HeroSection from '../components/HeroSection.vue'
 

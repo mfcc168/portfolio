@@ -305,6 +305,16 @@
 </template>
 
 <script setup>
+
+import { useHead } from '#imports'
+
+useHead({
+  title: 'About Me - Frankie Yu',
+  meta: [
+    { name: 'description', content: 'Learn more about my journey as a full-stack developer, my skills in Python, TypeScript, and more, and my development philosophy.' }
+  ]
+})
+
 import { nextTick } from 'vue'
 import NavigationHeader from '../components/NavigationHeader.vue'
 import HeroSection from '../components/HeroSection.vue'

@@ -15,11 +15,11 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Portfolio - Creative Developer',
+      title: 'Frankie Yu - Full-Stack Developer',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        
+        { name: 'description', content: 'Portfolio of Frankie Yu, a full-stack developer specializing in backend systems, mobile apps, and modern web technologies.' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

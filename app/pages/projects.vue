@@ -94,6 +94,15 @@
 </template>
 
 <script setup>
+
+import { useHead } from '#imports'
+useHead({
+  title: 'My Projects - Frankie Yu',
+  meta: [
+    { name: 'description', content: 'A showcase of my recent work, including the Lafarge ERP System, Plan My Plate, and other projects in backend, full-stack, and mobile development.' }
+  ]
+})
+
 import { ref, computed } from 'vue'
 import NavigationHeader from '../components/NavigationHeader.vue'
 import HeroSection from '../components/HeroSection.vue'
