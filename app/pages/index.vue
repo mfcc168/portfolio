@@ -56,12 +56,12 @@
 </template>
 
 <script setup>
-import NavigationHeader from './NavigationHeader.vue'
-import HeroSection from './HeroSection.vue'
-import AboutSection from './sections/AboutSection.vue'
-import SkillsSection from './sections/SkillsSection.vue'
-import ContactSection from './sections/ContactSection.vue'
-import InteractiveBackground from './ui/InteractiveBackground.vue'
+import NavigationHeader from '../components/NavigationHeader.vue'
+import HeroSection from '../components/HeroSection.vue'
+import AboutSection from '../components/sections/AboutSection.vue'
+import SkillsSection from '../components/sections/SkillsSection.vue'
+import ContactSection from '../components/sections/ContactSection.vue'
+import InteractiveBackground from '../components/ui/InteractiveBackground.vue'
 
 // Simple scroll to contact functionality
 const scrollToContact = () => {

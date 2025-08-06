@@ -95,10 +95,10 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import NavigationHeader from './NavigationHeader.vue'
-import HeroSection from './HeroSection.vue'
-import ProjectCard from './ProjectCard.vue'
-import InteractiveBackground from './ui/InteractiveBackground.vue'
+import NavigationHeader from '../components/NavigationHeader.vue'
+import HeroSection from '../components/HeroSection.vue'
+import ProjectCard from '../components/ProjectCard.vue'
+import InteractiveBackground from '../components/ui/InteractiveBackground.vue'
 
 const activeCategory = ref('all')
 

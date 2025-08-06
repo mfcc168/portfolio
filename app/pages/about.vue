@@ -306,9 +306,9 @@
 
 <script setup>
 import { nextTick } from 'vue'
-import NavigationHeader from './NavigationHeader.vue'
-import HeroSection from './HeroSection.vue'
-import InteractiveBackground from './ui/InteractiveBackground.vue'
+import NavigationHeader from '../components/NavigationHeader.vue'
+import HeroSection from '../components/HeroSection.vue'
+import InteractiveBackground from '../components/ui/InteractiveBackground.vue'
 
 // Navigate to contact section on home page
 const goToContact = async () => {
