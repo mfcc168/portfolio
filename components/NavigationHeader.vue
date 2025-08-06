@@ -1,7 +1,7 @@
 <template>
   <header :class="[
     'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out navbar-header',
-    isScrolled || !isHomePage ? 'navbar-scrolled' : 'navbar-transparent'
+    getNavbarClasses()
   ]">
     <nav class="container mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
@@ -10,7 +10,7 @@
           aria-label="Frankie Yu - Home"
           :class="[
             'text-2xl font-bold hover:text-blue-600 transition-colors',
-            isScrolled || !isHomePage ? 'text-gray-900' : 'text-white'
+            getLogoTextClasses()
           ]"
         >
           Frankie Yu
@@ -21,7 +21,7 @@
             to="/" 
             :class="[
               'hover:text-blue-600 transition-colors font-medium',
-              $route.path === '/' ? 'text-blue-600' : (isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90')
+              getTextColorClasses($route.path === '/')
             ]"
           >
             Home
@@ -30,7 +30,7 @@
             to="/projects" 
             :class="[
               'hover:text-blue-600 transition-colors font-medium',
-              $route.path === '/projects' ? 'text-blue-600' : (isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90')
+              getTextColorClasses($route.path === '/projects')
             ]"
           >
             Projects
@@ -39,7 +39,7 @@
             to="/about" 
             :class="[
               'hover:text-blue-600 transition-colors font-medium',
-              $route.path === '/about' ? 'text-blue-600' : (isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90')
+              getTextColorClasses($route.path === '/about')
             ]"
           >
             About
@@ -63,9 +63,7 @@
           :aria-expanded="mobileMenuOpen"
           :class="[
             'md:hidden p-2 rounded-lg transition-colors',
-            isScrolled || !isHomePage 
-              ? 'hover:bg-gray-100 text-gray-700' 
-              : 'hover:bg-white/10 text-white'
+            getToggleButtonClasses()
           ]"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,7 +88,7 @@
             @click="mobileMenuOpen = false"
             :class="[
               'hover:text-blue-600 transition-colors font-medium',
-              $route.path === '/' ? 'text-blue-600' : (isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90')
+              getTextColorClasses($route.path === '/')
             ]"
           >
             Home
@@ -100,7 +98,7 @@
             @click="mobileMenuOpen = false"
             :class="[
               'hover:text-blue-600 transition-colors font-medium',
-              $route.path === '/projects' ? 'text-blue-600' : (isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90')
+              getTextColorClasses($route.path === '/projects')
             ]"
           >
             Projects
@@ -110,7 +108,7 @@
             @click="mobileMenuOpen = false" 
             :class="[
               'hover:text-blue-600 transition-colors font-medium',
-              $route.path === '/about' ? 'text-blue-600' : (isScrolled || !isHomePage ? 'text-gray-700' : 'text-white/90')
+              getTextColorClasses($route.path === '/about')
             ]"
           >
             About
@@ -149,6 +147,51 @@ const isScrolled = computed(() => {
   if (import.meta.server) return false
   return scrollY.value > 50
 })
+
+// Dynamic navbar classes with glassmorphism for mobile menu
+const getNavbarClasses = () => {
+  if (mobileMenuOpen.value) {
+    return 'navbar-glass' // Always apply glass effect when mobile menu is open
+  } else if (isScrolled.value || !isHomePage.value) {
+    return 'navbar-scrolled'
+  } else {
+    return 'navbar-transparent'
+  }
+}
+
+// Helper function for text colors - white text for glass effect
+const getTextColorClasses = (isActive = false) => {
+  if (mobileMenuOpen.value) {
+    // Glass effect - use white text
+    return isActive ? 'text-blue-300' : 'text-white'
+  } else if (isScrolled.value || !isHomePage.value) {
+    return isActive ? 'text-blue-600' : 'text-gray-700'
+  } else {
+    return isActive ? 'text-blue-400' : 'text-white/95'
+  }
+}
+
+// Helper for logo text color  
+const getLogoTextClasses = () => {
+  if (mobileMenuOpen.value) {
+    return 'text-white'
+  } else if (isScrolled.value || !isHomePage.value) {
+    return 'text-gray-900'
+  } else {
+    return 'text-white'
+  }
+}
+
+// Helper for mobile menu toggle button
+const getToggleButtonClasses = () => {
+  if (mobileMenuOpen.value) {
+    return 'hover:bg-white/10 text-white'
+  } else if (isScrolled.value || !isHomePage.value) {
+    return 'hover:bg-gray-100 text-gray-700'
+  } else {
+    return 'hover:bg-white/10 text-white'
+  }
+}
 
 const handleScroll = () => {
   scrollY.value = window.scrollY
@@ -203,5 +246,13 @@ onUnmounted(() => {
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(229, 231, 235, 1);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Simple transparent blur background for mobile menu */
+.navbar-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 </style>
