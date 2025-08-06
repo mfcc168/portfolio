@@ -5,7 +5,6 @@
     
     <!-- Page content with higher z-index -->
     <div class="relative z-10">
-      <NavigationHeader />
       
       <HeroSection variant="animated">
         <template #title>
@@ -104,7 +103,6 @@ useHead({
 })
 
 import { ref, computed } from 'vue'
-import NavigationHeader from '../components/NavigationHeader.vue'
 import HeroSection from '../components/HeroSection.vue'
 import ProjectCard from '../components/ProjectCard.vue'
 import InteractiveBackground from '../components/ui/InteractiveBackground.vue'

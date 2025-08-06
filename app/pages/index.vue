@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- Nav bar -->
-    <NavigationHeader />
     
     <!-- Main hero area -->
     <HeroSection :full-height="true" variant="gradient">
@@ -65,7 +63,6 @@ useHead({
   ]
 })
 
-import NavigationHeader from '../components/NavigationHeader.vue'
 import HeroSection from '../components/HeroSection.vue'
 
 // Lazy-load these components

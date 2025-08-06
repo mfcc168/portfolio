@@ -5,7 +5,6 @@
     
     <!-- Page content with higher z-index -->
     <div class="relative z-10">
-      <NavigationHeader />
       
       <!-- Header -->
       <HeroSection variant="animated">
@@ -316,7 +315,6 @@ useHead({
 })
 
 import { nextTick } from 'vue'
-import NavigationHeader from '../components/NavigationHeader.vue'
 import HeroSection from '../components/HeroSection.vue'
 import InteractiveBackground from '../components/ui/InteractiveBackground.vue'
 
