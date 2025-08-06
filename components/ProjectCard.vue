@@ -66,6 +66,8 @@
           v-if="project.liveUrl"
           :href="project.liveUrl" 
           target="_blank"
+          :aria-label="`${getLiveButtonText()} for ${project.title} project`"
+          rel="noopener noreferrer"
           class="flex-1 inline-flex items-center justify-center px-4 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-sm hover:shadow-md"
         >
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,6 +79,8 @@
           v-if="project.githubUrl"
           :href="project.githubUrl" 
           target="_blank"
+          :aria-label="`View source code for ${project.title} project on GitHub`"
+          rel="noopener noreferrer"
           class="inline-flex items-center justify-center px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:border-gray-400 hover:text-gray-900 transition-all duration-300"
         >
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

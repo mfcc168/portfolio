@@ -7,6 +7,7 @@
       <div class="flex items-center justify-between">
         <NuxtLink 
           to="/" 
+          aria-label="Frankie Yu - Home"
           :class="[
             'text-2xl font-bold hover:text-blue-600 transition-colors',
             isScrolled || !isHomePage ? 'text-gray-900' : 'text-white'
@@ -58,6 +59,8 @@
         
         <button 
           @click="mobileMenuOpen = !mobileMenuOpen"
+          :aria-label="mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'"
+          :aria-expanded="mobileMenuOpen"
           :class="[
             'md:hidden p-2 rounded-lg transition-colors',
             isScrolled || !isHomePage 
@@ -74,6 +77,8 @@
       
       <div 
         v-if="mobileMenuOpen" 
+        role="navigation"
+        aria-label="Mobile navigation menu"
         :class="[
           'md:hidden mt-4 pb-4 border-t transition-colors',
           isScrolled || !isHomePage ? 'border-gray-100' : 'border-white/20'
