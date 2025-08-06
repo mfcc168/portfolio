@@ -58,9 +58,12 @@
 <script setup>
 import NavigationHeader from '../components/NavigationHeader.vue'
 import HeroSection from '../components/HeroSection.vue'
-import AboutSection from '../components/sections/AboutSection.vue'
-import SkillsSection from '../components/sections/SkillsSection.vue'
-import ContactSection from '../components/sections/ContactSection.vue'
+
+// Lazy-load these components
+const AboutSection = defineAsyncComponent(() => import('../components/sections/AboutSection.vue'))
+const SkillsSection = defineAsyncComponent(() => import('../components/sections/SkillsSection.vue'))
+const ContactSection = defineAsyncComponent(() => import('../components/sections/ContactSection.vue'))
+
 import InteractiveBackground from '../components/ui/InteractiveBackground.vue'
 
 // Simple scroll to contact functionality
