@@ -20,8 +20,8 @@ module.exports = {
       },
       keyframes: {
         float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+          '0%, 100%': { transform: 'translate3d(0, 0px, 0)' },
+          '50%': { transform: 'translate3d(0, -20px, 0)' },
         },
         'pulse-glow': {
           '0%, 100%': { opacity: '0.5' },
